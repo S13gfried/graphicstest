@@ -17,7 +17,7 @@ triangle::triangle(std::vector<vector2f> newVertices = {{0.0, 0.0}, {0.0, 0.0}, 
 
     vertices = newVertices;
   }
-void triangle::setVertex(int index, vector2f value) 
+bool triangle::setVertex(int index, vector2f value) 
   {
     if (index < 0)
       throw std::invalid_argument("Negative index is not supported");
@@ -25,6 +25,7 @@ void triangle::setVertex(int index, vector2f value)
       throw std::invalid_argument("Index out of range");
 
     vertices[index] = value;
+    return 1;
   }
 std::vector<vector2f> triangle::getVertices() const 
   { 
@@ -85,7 +86,7 @@ bool rectangleP::setVertex(int index, vector2f newvertex) //reposition the state
         }
         return rearrangeRelativePositions(); //if the rectangle is flipped, restore the correct order of indices.
     }
-std::vector<vector2f> rectangleP::getVertex() const
+std::vector<vector2f> rectangleP::getVertices() const
     {
         return vertices;
     }
@@ -122,4 +123,26 @@ bool rectangleP::rearrangeRelativePositions() //Compensate for "flips" happening
                 swapVertices(TOPRIGHT, BOTTOMRIGHT), result = 1;
         }
         return result;
+    }
+bool rectangleP::nonDegenerate() const 
+    {
+        //rearrangeRelativePositions();
+        return (vertices[TOPRIGHT].x != vertices[TOPLEFT].x) && (vertices[TOPRIGHT].y != vertices[BOTTOMRIGHT].y);
+    }
+std::vector<triangle> rectangleP::subdivideTriangles(int diagonal = TLBR) const
+    {     
+        std::vector<triangle> division;
+
+        if(diagonal == TRBL)
+        {
+            division.push_back(triangle({vertices[TOPLEFT], vertices[TOPRIGHT], vertices[BOTTOMLEFT]}));
+            division.push_back(triangle({vertices[TOPRIGHT], vertices[BOTTOMRIGHT], vertices[BOTTOMLEFT]}));
+        }
+        else
+        {
+            division.push_back(triangle({vertices[TOPLEFT], vertices[TOPRIGHT], vertices[BOTTOMRIGHT]}));
+            division.push_back(triangle({vertices[TOPLEFT], vertices[BOTTOMLEFT], vertices[BOTTOMRIGHT]}));
+        }
+
+        return division;
     }
