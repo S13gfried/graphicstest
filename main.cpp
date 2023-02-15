@@ -1,56 +1,50 @@
 // Graphic dependencies
-#include <libraries/include/GL/glew.h> //Provides ways to access hardware and get functions to in
-#include <libraries/include/GLFW/glfw3.h>
+//#include <GL/glew.h>  //Provides ways to access hardware and get functions to in
+//#include <GLFW/glfw3.h>
+#include <GL/glut.h>
+
+#include <assert.h>
+#include <errno.h>
 
 #include <iostream>
-#include <stdio.h>
-#include <errno.h>
-#include <assert.h>
+#include <stdexcept>
+
+#include "geometry.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
-#define WINDOW_TITLE "a fucking triangle"
+#define WINDOW_TITLE "BUERAK 4: THE SILENCE OF THE HOUSES"
 
-int main(void)
+void renderRectange(rectangleP)
 {
-    //initialize GLFW
-    assert(glfwInit()); 
-    //initialize GLEW
-    assert(glewInit() == GLEW_OK);
 
-   //create window context
-    GLFWwindow* appWindow;
- 
-    appWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, NULL, NULL);
-    if(!appWindow)
-    {
-        glfwTerminate();
-        assert(0); //goofy ahh
-    }
+}
 
-    //select the window we've just initialized
-    glfwMakeContextCurrent(appWindow);
+void display()
+{
+  glClearColor(0.0, 0.0, 0.0, 0.0);
+  glClear(GL_COLOR_BUFFER_BIT);
 
-    //the following loop runs until the user closes the window.
-    while(!glfwWindowShouldClose(appWindow))
-    {
-        //clear the window
-        glClear(GL_COLOR_BUFFER_BIT);
+  glColor3f(1.0, 1.0, 1.0);
+  glBegin(GL_TRIANGLES);
 
-        //enter triangle mode
-        glBegin(GL_TRIANGLES);
-        //specify vertices
-        glVertex2f(-0.5f, -0.5f);
-        glVertex2f(0.5f, -0.5f);
-        glVertex2f(0.0f, 0.5f);
-        glEnd();
+  glVertex2f(-1.5, -1.5);
+  glVertex2f(1.5, -1.5);
+  glVertex2f(0.0, 1.5);
 
-        glfwSwapBuffers(appWindow);
+  glEnd();
+  glFlush();
+}
 
-        glfwPollEvents();
-    }
+int main(int argc, char** argv)
+{
+  glutInit(&argc, argv);
+  glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+  glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+  glutInitWindowPosition(100, 100);
 
-    //terminate
-    glfwTerminate();
-    return 0;
+  glutCreateWindow(WINDOW_TITLE);
+  glutDisplayFunc(display);
+  glutMainLoop();
+  return 0;
 }

@@ -1,12 +1,21 @@
-COMP=g++
-CFLAGS=-Wall -Wextra
+CC=gcc
 
-SOURCE=main.cpp
-NAME=app
+CFLAGS=-c -Wall
+LDFLAGS=-lglut -lGL -lGLU -lGLEW -lm -lstdc++
+SOURCES=main.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=app
 
-HEADERPATHS=-I/libraries/include/GL -I/libraries/include/GLFW
-LIBPATH=-L/libraries/lib/GLEW -L/libraries/lib/GLFW
-LIBLINK=$(LIBPATH) -lglfw3 -lglew32.lib
+all: $(SOURCES) $(EXECUTABLE)
+	rm *.o
 
-all:
-	$(COMP) $(CFLAGS) $(HEADERPATHS) $(LIBLINK) $(SOURCE) -o $(NAME)
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) -o $(EXECUTABLE) $(OBJECTS) $(LDFLAGS)
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
+
+clean:
+	rm *.o $(EXECUTABLE)
+
+#gcc -o main main.o -lglut -lGL -lGLU -lm -lstdc++ - working command
