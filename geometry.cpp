@@ -1,5 +1,8 @@
 #include "geometry.h"
 
+//shape2f::shape2f() {}
+//shape2f::~shape2f() {}
+
 //Vector2 generator
 
 vector2f::vector2f(float newX = 0.0, float newY = 0.0) 
@@ -48,12 +51,16 @@ bool triangle::nonDegenerate() const  // Check whether
 
 //rectangleP - generic rectangle with sides parallel to world axes
 
-rectangleP::rectangleP(vector2f topleft, vector2f bottomright)
+rectangleP::rectangleP(vector2f topleft, vector2f bottomright) //possibly make it into a vector
     {
+        vertices = std::vector<vector2f>(4);
+
         vertices[TOPLEFT] = topleft;
         vertices[TOPRIGHT] = vector2f(bottomright.x, topleft.y);
         vertices[BOTTOMRIGHT] = bottomright;
         vertices[BOTTOMLEFT] = vector2f(topleft.x, bottomright.y);
+        
+        rearrangeRelativePositions();
     }
 bool rectangleP::setVertex(int index, vector2f newvertex) //reposition the stated vertex.
     {

@@ -3,25 +3,26 @@
 #include <vector>
 #include <stdexcept>
 
+class vector2f {
+ public:
+  float x, y;
+
+  vector2f(float newX, float newY);
+};
+/*
 class shape2f
 {
     private:
     std::vector<vector2f> vertices;
 
     public:
-    int size();
+    shape2f();
+    virtual ~shape2f();
     virtual std::vector<vector2f> getVertices() const;
     virtual bool setVertex(int index, vector2f value);
 };
-
-class vector2f {
- public:
-  float x, y;
-
-  vector2f(float newX = 0.0, float newY = 0.0);
-};
-
-class triangle : shape2f {
+*/
+class triangle /*: shape2f*/ {
  private:
 
   std::vector<vector2f>
@@ -29,7 +30,7 @@ class triangle : shape2f {
 
  public:
 
-  triangle(std::vector<vector2f> newVertices = {{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}});
+  triangle(std::vector<vector2f> newVertices);
 
   bool setVertex(int index, vector2f value); //Sets vector2f for individual vertex of a triangle
   std::vector<vector2f> getVertices() const; //Gets the whole vector of vector2f triangle vertex coordinates
@@ -37,7 +38,8 @@ class triangle : shape2f {
   bool nonDegenerate() const;  // Check whether vertices are placed on a straight line (area = 0)
 };
 
-class rectangleP : shape2f {
+class rectangleP /*: shape2f*/ {
+ public:
 
 enum rectVertices { TOPLEFT, TOPRIGHT, BOTTOMRIGHT, BOTTOMLEFT }; //Relative positions of vertices.
 enum diagonalModes { TLBR, TRBL }; //Two possible diagonals: top left - bottom right, top right - bottom left.
@@ -56,5 +58,5 @@ enum diagonalModes { TLBR, TRBL }; //Two possible diagonals: top left - bottom r
     bool setVertex(int index, vector2f newvertex); //Reposition an individual vertex.
     std::vector<vector2f> getVertices() const; //Return a vector of vertices' vector2f with length 4.
     bool nonDegenerate() const; //Check whether all vertices of a rectangle are placed on a straight line (area = 0)
-    std::vector<triangle> subdivideTriangles(int diagonal = TLBR) const; //divide the rectangle into two triangles.
+    std::vector<triangle> subdivideTriangles(int diagonal) const; //divide the rectangle into two triangles.
 };
