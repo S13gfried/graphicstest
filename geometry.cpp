@@ -1,8 +1,5 @@
 #include "geometry.h"
 
-//shape2f::shape2f() {}
-//shape2f::~shape2f() {}
-
 //Vector2 generator
 
 vector2f::vector2f(float newX = 0.0, float newY = 0.0) 
@@ -10,30 +7,35 @@ vector2f::vector2f(float newX = 0.0, float newY = 0.0)
      x = newX, y = newY; 
   }
 
+std::vector<vector2f> shape2f::getVertices() const
+    {
+        return vertices;
+    }
+
+bool shape2f::setVertex(int index, vector2f value)
+  {
+    if (index < 0)
+      throw std::invalid_argument("Negative index is not supported");
+    if (index >= (int)vertices.size())
+      throw std::invalid_argument("Index out of range");
+
+    vertices[index] = value;
+    return 1;
+  }
+
+
 //Generic triangle class
 
-triangle::triangle(std::vector<vector2f> newVertices = {{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}) {
+triangle::triangle(std::vector<vector2f> newVertices = {{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}}) 
+    {
     if (newVertices.size() < 3)
       throw std::invalid_argument("Not enough vertices");
     if (newVertices.size() > 3)
       throw std::invalid_argument("Too many vertices");
 
     vertices = newVertices;
-  }
-bool triangle::setVertex(int index, vector2f value) 
-  {
-    if (index < 0)
-      throw std::invalid_argument("Negative index is not supported");
-    if (index > 2)
-      throw std::invalid_argument("Index out of range");
+    }
 
-    vertices[index] = value;
-    return 1;
-  }
-std::vector<vector2f> triangle::getVertices() const 
-  { 
-    return vertices; 
-  }
 bool triangle::nonDegenerate() const  // Check whether
   {
     vector2f referencePoint = vertices[0];
@@ -92,10 +94,6 @@ bool rectangleP::setVertex(int index, vector2f newvertex) //reposition the state
             vertices[TOPLEFT].x = newvertex.x;
         }
         return rearrangeRelativePositions(); //if the rectangle is flipped, restore the correct order of indices.
-    }
-std::vector<vector2f> rectangleP::getVertices() const
-    {
-        return vertices;
     }
 void rectangleP::swapVertices(int index1, int index2)
     {

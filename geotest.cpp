@@ -1,14 +1,7 @@
 #include "geometry.h"
 #include <iostream>
 
-void printShape(triangle shape) //shape2f shape
-{
-    std::vector<vector2f> vertices = shape.getVertices();
-    for(int i = 0; i < (int)vertices.size(); i++)
-        std::cout << "#" << i << ": " << vertices[i].x << ", " << vertices[i].y << "\n";
-    std::cout << std::endl;
-}
-void printShape(rectangleP shape) //shape2f shape
+void printShape(const shape2f& shape) //shape2f shape
 {
     std::vector<vector2f> vertices = shape.getVertices();
     for(int i = 0; i < (int)vertices.size(); i++)
