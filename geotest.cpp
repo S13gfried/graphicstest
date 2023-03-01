@@ -1,4 +1,4 @@
-#include "geometry.h"
+#include "headers/geometry.h"
 #include <iostream>
 
 void printShape(const shape2f& shape) //shape2f shape
@@ -20,7 +20,7 @@ vector2f inputVector2f()
 int main()
 {
     int vertexNo;
-    /*
+    
     //triangle
     std::cout << "Enter triangle vertices:" << std::endl;
     triangle sample = triangle({inputVector2f(), inputVector2f(), inputVector2f()});
@@ -37,7 +37,7 @@ int main()
     std::cout << "Changed:" << std::endl;
 
     printShape(sample);
-    */
+    
     //rectangle
     std::cout << "RECTANGLE:" << std::endl;
 

@@ -1,4 +1,4 @@
-#include "geometry.h"
+#include "headers/geometry.h"
 
 //Vector2 generator
 
@@ -7,12 +7,24 @@ vector2f::vector2f(float newX = 0.0, float newY = 0.0)
      x = newX, y = newY; 
   }
 
+
+//overloading
+vector2f operator+(const vector2f& lhs, const vector2f& rhs) 
+    {
+        return {lhs.x + rhs.x, lhs.y + rhs.y};
+    }
+vector2f operator-(const vector2f& lhs, const vector2f& rhs) 
+    {
+        return {lhs.x - rhs.x, lhs.y - rhs.y};
+    } 
+
+
 std::vector<vector2f> shape2f::getVertices() const
     {
         return vertices;
     }
 
-bool shape2f::setVertex(int index, vector2f value)
+bool shape2f::setVertex(const int& index, const vector2f& value)
   {
     if (index < 0)
       throw std::invalid_argument("Negative index is not supported");

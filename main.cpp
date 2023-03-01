@@ -1,27 +1,24 @@
 // Graphic dependencies
-//#include <GL/glew.h>  //Provides ways to access hardware and get functions to in
-//#include <GLFW/glfw3.h>
+//#include <GL/glew.h>  //Provides ways to access hardware and get functions to
+#include <GLFW/glfw3.h>
 #include <GL/glut.h>
-
 #include <assert.h>
 #include <errno.h>
 
 #include <iostream>
 #include <stdexcept>
 
-#include "geometry.h"
+#include "headers/geometry.h"
+#include "headers/render.h"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 #define WINDOW_TITLE "BUERAK 4: THE SILENCE OF THE HOUSES"
 
-void renderRectange(rectangleP)
-{
+void renderRectange(rectangleP) {}
 
-}
+void display() {
 
-void display()
-{
   glClearColor(0.0, 0.0, 0.0, 0.0);
   glClear(GL_COLOR_BUFFER_BIT);
 
@@ -34,10 +31,11 @@ void display()
 
   glEnd();
   glFlush();
+
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
+
   glutInit(&argc, argv);
   glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
   glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -46,5 +44,6 @@ int main(int argc, char** argv)
   glutCreateWindow(WINDOW_TITLE);
   glutDisplayFunc(display);
   glutMainLoop();
+
   return 0;
 }

@@ -5,6 +5,7 @@ LDFLAGS=-lglut -lGL -lGLU -lGLEW -lm -lstdc++
 SOURCES=main.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=app
+EXFOLDER=execs
 
 all: $(SOURCES) $(EXECUTABLE)
 	rm *.o
@@ -16,9 +17,9 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm *.o $(EXECUTABLE)
+	rm $(EXFOLDER)/*.o $(EXFOLDER)/$(EXECUTABLE)
 
 geotest:
-	$(CC) $(CFLAGS) geometry.cpp geotest.cpp -o $@
+	$(CC) $(CFLAGS) geometry.cpp geotest.cpp -o $(EXFOLDER)/$@
 
 #gcc -o main main.o -lglut -lGL -lGLU -lm -lstdc++ - working command
